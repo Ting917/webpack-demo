@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -6,8 +7,23 @@ module.exports = {
   output: {
     filename: '[name].[contenthash].js',
   },
-  plugins: [new HTMLWebpackPlugin({
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist',
+  },
+  plugins: [new HtmlWebpackPlugin({
     title: 'My App',
     template: 'src/assets/index.html'
-  })]
+  })],
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
+  optimization: {
+    runtimeChunk: 'single',
+  },
 };
