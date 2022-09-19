@@ -15,6 +15,15 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.less$/i,
+        use: [
+          // compiles Less to CSS
+          'style-loader',
+          'css-loader',
+          'less-loader',
+        ],
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           // 将 JS 字符串生成为 style 节点
@@ -23,11 +32,15 @@ module.exports = {
           'css-loader',
           // 将 Sass 编译成 CSS
           'sass-loader',
-        //   {
-        //     loader: 'sass-loader',
-        //     options: {sass: require('dart-sass')}
-        //   }
         ],
+      },
+      {
+        test: /\.styl$/,
+        loader: ['style-loader','css-loader','stylus-loader'] // 将 Stylus 文件编译为 CSS
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: ['file-loader'],
       },
     ],
   },
